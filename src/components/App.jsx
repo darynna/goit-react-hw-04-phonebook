@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ContactForm } from "./ContactForm/ContactForm";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./SearchFilter/SearchFilter";
@@ -55,7 +55,7 @@ export const App =()=>{
     const value = e.target.value;
     setFilter(value);
   }
-  
+
   console.log(filter)
 
     return(
