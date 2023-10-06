@@ -14,7 +14,6 @@ export const App =()=>{
   {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},])
 
   const [filter, setFilter] = useState('')
-  const [filteredContactsList, setFilteredContactsList] = useState([]);
 
   useEffect(()=>{
     const contactsData = localStorage.getItem(LS_KEY)
@@ -28,12 +27,6 @@ export const App =()=>{
     useEffect(()=>{
       localStorage.setItem(LS_KEY, JSON.stringify(contacts))
     }, [contacts])
-
-    useEffect(() => {
-      const normalizedFilter = filter.toLowerCase();
-      const filtered = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
-      setFilteredContactsList(filtered);
-    }, [contacts, filter]);
 
   const handleAddContacts = (newContact) => {
    const hasContactDuplicate = contacts.some(contact => contact.name.toLowerCase() === newContact.name.toLowerCase())
@@ -56,7 +49,12 @@ export const App =()=>{
     setFilter(value);
   }
 
-  console.log(filter)
+  const handleFilter = () =>{
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
+  }
+
+  const filteredContacts = handleFilter() 
 
     return(
       <MainWrap>
@@ -65,7 +63,7 @@ export const App =()=>{
         <Filter value={filter} onChange={handleFilterInputChange}/>
 
         <Title>Contacts</Title>
-        <ContactList contacts={filteredContactsList} handleDeleteContacts={handleDeleteContacts}/>
+        <ContactList contacts={filteredContacts} handleDeleteContacts={handleDeleteContacts}/>
       </MainWrap>
     )
     }
